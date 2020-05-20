@@ -14,8 +14,8 @@
 Route::get('/','PagesController@root')->name('root');
 
 // Laravel 的用户认证路由
-//Auth::routes(); 同等于下面，为了直观，注册该条，用下面来代替
-//用户身份验证相关的路由
+// Auth::routes(); 同等于下面，为了直观，注册该条，用下面来代替
+// 用户身份验证相关的路由
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');

@@ -2,13 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+/**
+ * MustVerifyEmail类说明：
+ * /laravel/framework/src/Illuminate/Contracts/Auth/MustVerifyEmail.php ，
+ * 可以看到此文件为 PHP 的接口类，继承此类将确保 User 遵守契约，拥有下面提到的四个方法。
+ */
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable;
+    /**
+     *
+     * 加载使用 MustVerifyEmail trait，打开 vendor/laravel/framework/src/Illuminate/Auth/MustVerifyEmail.php 文件，可以看到以下四个方法：
+     * hasVerifiedEmail() 检测用户 Email 是否已认证；
+     * markEmailAsVerified() 将用户标示为已认证；
+     * sendEmailVerificationNotification() 发送 Email 认证的消息通知，触发邮件的发送；
+     * getEmailForVerification() 获取发送邮件地址，提供这个接口允许你自定义邮箱字段。
+     * 得益于 PHP 的 trait 功能，User 模型在 use 以后，即可使用以上四个方法
+     */
+    use Notifiable, MustVerifyEmailTrait;
 
     /**
      * The attributes that are mass assignable.
