@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
+use Auth;
 
 class User extends Authenticatable implements MustVerifyEmailContract
 {
@@ -23,7 +24,31 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * getEmailForVerification() 获取发送邮件地址，提供这个接口允许你自定义邮箱字段。
      * 得益于 PHP 的 trait 功能，User 模型在 use 以后，即可使用以上四个方法
      */
-    use Notifiable, MustVerifyEmailTrait;
+    use MustVerifyEmailTrait;
+
+    use Notifiable {
+        notify as protected laravelNotify;
+    }
+
+    /**
+     * @param $instance
+     * 我们对 notify() 方法做了一个巧妙的重写，现在每当你调用 $user->notify() 时，
+     * users 表里的 notification_count 将自动 +1。
+     */
+    public function notify($instance)
+    {
+        // 如果要通知的人是当前用户，就不必通知了！
+        if ($this->id == Auth::id()) {
+            return;
+        }
+
+        // 只有数据库类型通知才需提醒，直接发送 Email 或者其他的都 Pass
+        if (method_exists($instance, 'toDatabase')) {
+            $this->increment('notification_count');
+        }
+
+        $this->laravelNotify($instance);
+    }
 
     /**
      * The attributes that are mass assignable.
