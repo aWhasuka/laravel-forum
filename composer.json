@@ -12,6 +12,7 @@
         "barryvdh/laravel-ide-helper": "^2.7",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
+        "gregwar/captcha": "^1.1",
         "guzzlehttp/guzzle": "~6.3",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
@@ -23,6 +24,7 @@
         "overtrue/laravel-lang": "~3.0",
         "overtrue/pinyin": "~4.0",
         "predis/predis": "~1.1",
+        "socialiteproviders/weixin": "^4.0",
         "summerblue/laravel-active": "6.*"
     },
     "require-dev": {
