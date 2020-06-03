@@ -66,7 +66,18 @@ Route::prefix('v1')->namespace('Api\v1')->name('api.v1.')->group(function () {
             // 当前登录用户信息
             Route::get('user', 'UsersController@me')
                 ->name('user.show');
+
+            // 编辑登录用户信息
+            // put 替换某个资源，需提供完整的资源信息；
+            // patch 部分修改资源，提供部分资源信息。
+            Route::patch('user', 'UsersController@update')
+                ->name('user.update');
+
+            // 上传图片
+            Route::post('images', 'ImagesController@store')
+                ->name('images.store');
         });
+
     });
 
 });
