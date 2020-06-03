@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->namespace('Api\v1')->name('api.v1.')->group(function () {
 
+    // 调用频率限制
     Route::middleware('throttle:'.config('api.rate_limits.sign'))->group(function(){
 
         // 图片验证码
@@ -51,4 +52,21 @@ Route::prefix('v1')->namespace('Api\v1')->name('api.v1.')->group(function () {
             ->name('authorizations.destroy');
 
     });
+
+    // 统一 1 分钟只能调 用 60 次
+    Route::middleware('throttle:'.config('api.rate_limits.access'))->group(function () {
+        // 游客可以访问的接口
+
+        // 某个用户的详情
+        Route::get('users/{user}', 'UsersController@show')
+            ->name('users.show');
+
+        // 登录后可以访问的接口
+        Route::middleware('auth:api')->group(function() {
+            // 当前登录用户信息
+            Route::get('user', 'UsersController@me')
+                ->name('user.show');
+        });
+    });
+
 });
