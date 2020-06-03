@@ -12,8 +12,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Auth;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements MustVerifyEmailContract
+class User extends Authenticatable implements MustVerifyEmailContract, JWTSubject
 {
     /**
      *
@@ -28,6 +29,18 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     use Notifiable {
         notify as protected laravelNotify;
+    }
+
+    // getJWTIdentifier 返回了 User 的 id
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    // getJWTCustomClaims 是我们需要额外在 JWT 载荷中增加的自定义内容
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
     /**
@@ -56,7 +69,8 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'name', 'phone', 'email', 'password', 'introduction', 'avatar'
+        'name', 'phone', 'email', 'password', 'introduction', 'avatar',
+        'weixin_openid', 'weixin_unionid'
     ];
 
     /**

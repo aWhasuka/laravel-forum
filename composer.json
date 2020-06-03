@@ -25,7 +25,8 @@
         "overtrue/pinyin": "~4.0",
         "predis/predis": "~1.1",
         "socialiteproviders/weixin": "^4.0",
-        "summerblue/laravel-active": "6.*"
+        "summerblue/laravel-active": "6.*",
+        "tymon/jwt-auth": "1.0.0-rc.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "~3.2",
