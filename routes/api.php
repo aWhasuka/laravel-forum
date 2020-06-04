@@ -66,7 +66,7 @@ Route::prefix('v1')->namespace('Api\v1')->name('api.v1.')->group(function () {
             ->name('categories.index');
 
         // 话题列表
-        Route::resource('topics', 'TopicsController')->only(['index']);
+        Route::resource('topics', 'TopicsController')->only(['index', 'show']);
 
         // 某个用户发布的话题
         Route::get('users/{user}/topics', 'TopicsController@userIndex')
@@ -89,9 +89,12 @@ Route::prefix('v1')->namespace('Api\v1')->name('api.v1.')->group(function () {
                 ->name('images.store');
 
             // 发布话题
-            Route::resource('topics', 'TopicsController')->only([
-                'store', 'update', 'destroy'
-            ]);
+            Route::resource('topics', 'TopicsController')
+                ->only(['store', 'update', 'destroy']);
+
+            // 发布回复
+            Route::post('topics/{topic}/replies', 'RepliesController@store')
+                ->name('topics.replies.store');
 
         });
 

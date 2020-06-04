@@ -12,6 +12,11 @@ use App\Models\User;
 
 class TopicsController extends Controller
 {
+    public function show(Topic $topic)
+    {
+        return new TopicResource($topic);
+    }
+
     public function userIndex(Request $request, User $user)
     {
         $query = $user->topics()->getQuery();
