@@ -26,4 +26,14 @@ class TopicsController extends Controller
         $topic->update($request->all());
         return new TopicResource($topic);
     }
+
+    public function destroy(Topic $topic)
+    {
+        // 使用的是 destroy 的权限控制，判断用户是否有权限删除
+        $this->authorize('destroy', $topic);
+
+        $topic->delete();
+
+        return response(null, 204);
+    }
 }
