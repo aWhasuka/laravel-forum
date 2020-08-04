@@ -11,10 +11,13 @@
         "php": "^7.2",
         "barryvdh/laravel-ide-helper": "^2.7",
         "doctrine/dbal": "^2.10",
+        "encore/laravel-admin": "1.7.15",
         "fideloper/proxy": "^4.0",
         "gregwar/captcha": "^1.1",
         "guzzlehttp/guzzle": "~6.3",
+        "ichynul/iframe-tabs": "^1.3",
         "intervention/image": "^2.5",
+        "jxlwqq/quill": "^1.0",
         "laravel/framework": "^6.2",
         "laravel/horizon": "~3.1",
         "laravel/tinker": "^2.0",
@@ -27,6 +30,7 @@
         "socialiteproviders/weixin": "^4.0",
         "spatie/laravel-query-builder": "^2.8",
         "summerblue/laravel-active": "6.*",
+        "super-eggs/laravel-admin-tinymce": "^0.0.2",
         "tymon/jwt-auth": "1.0.0-rc.5"
     },
     "require-dev": {
